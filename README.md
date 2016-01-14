@@ -159,3 +159,56 @@ Note that I also have a decorator in app.js to allow my app to continue working 
         };
       }
     }]);
+
+
+
+/*   This for direct Cordova */
+
+ var CallNumber = function(){};
+
+Calllog.prototype.calllog = function(success, failure, number, bypassAppChooser){
+    cordova.exec(success, failure, "Calllog", "calllog", [number, bypassAppChooser]);
+};
+
+//Plug in to Cordova
+        function callnow()
+        {
+            alert();
+cordova.addConstructor(function() {
+
+    if (!window.Cordova) {
+        window.Cordova = cordova;
+    };
+
+    if(!window.plugins) window.plugins = {};
+   // window.plugins.calllog = new calllog();
+    
+
+           function onError(error) {
+                alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+            }
+
+        var bypassAppChooser=true;   
+      //window.plugins.CallNumber.callNumber(onSuccess, onError, number);
+   // window.plugins.CallNumber.callNumber(onSuccess, onError, number);
+    //Ragu Call Code
+    window.plugins.calllog.list("1", function (response) {
+                console.log(response.rows);
+        
+        
+        
+        
+        document.getElementById("asd").innerHTML ="<pre>"+ JSON.stringify(response.rows)+ "</pre>";
+            });
+    
+    
+});
+            alert();
+     
+        }
+
+
+
+
+
